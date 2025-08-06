@@ -68,33 +68,44 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Form submission handling (example for contact form)
-  const contactForm = document.getElementById("contact-form")
-  if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault()
+  const contactForm = document.getElementById("contact-form");
 
-      // Get form data
-      const formData = new FormData(contactForm)
-      const name = formData.get("name")
-      const email = formData.get("email")
-      const company = formData.get("company")
-      const message = formData.get("message")
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-      // Simple validation
-      if (!name || !email || !message) {
-        alert("Please fill in all required fields!")
-        return
-      }
+    const formData = new FormData(contactForm);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const company = formData.get("company");
+    const message = formData.get("message");
 
-      // Simulate form submission
-      alert(
-        "🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨",
-      )
+    // Simple validation
+    if (!name || !email || !message) {
+      alert("Please fill in all required fields!");
+      return;
+    }
 
-      // Reset form
-      contactForm.reset()
+    // Submit the form to Web3Forms
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
     })
-  }
+      .then((response) => {
+        if (response.ok) {
+          alert("🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨");
+          contactForm.reset();
+        } else {
+          alert("⚠️ Oops! Something went wrong. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Submission error:", error);
+        alert("⚠️ Network error. Please try again later.");
+      });
+  });
+}
+
 
   // Newsletter form handling
   const newsletterForm = document.querySelector(".newsletter-form")
