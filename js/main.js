@@ -91,14 +91,17 @@ if (contactForm) {
       method: "POST",
       body: formData
     })
-      .then((response) => {
-        if (response.ok) {
-          alert("🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨");
-          contactForm.reset();
-        } else {
-          alert("⚠️ Oops! Something went wrong. Please try again.");
-        }
-      })
+      ..then(async (response) => {
+  if (response.ok) {
+    showSuccessPopup(); // ← Modern popup
+    contactForm.reset();
+  } else {
+    const resData = await response.json();
+    console.error("Error response:", resData);
+    alert("❌ Oops! Submission failed. Please try again or check your access key.");
+  }
+})
+
       .catch((error) => {
         console.error("Submission error:", error);
         alert("⚠️ Network error. Please try again later.");
