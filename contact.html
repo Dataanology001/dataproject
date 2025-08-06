@@ -75,7 +75,10 @@
                             We promise to reply faster than data flows through our networks! ⚡
                         </p>
 
-                        <form class="contact-form" id="contact-form">
+                        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                            <!-- REQUIRED: Web3Forms access key -->
+                            <input type="hidden" name="access_key" value="22784d49-229f-4b55-9f77-4096aac311a6">
+
                             <div class="form-group">
                                 <label for="name">🙋‍♀️ What's your name? *</label>
                                 <input type="text" id="name" name="name" required placeholder="Your awesome name here!">
