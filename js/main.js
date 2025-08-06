@@ -68,35 +68,40 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Form submission handling (example for contact form)
-  const contactForm = document.getElementById("contact-form");
+ const contactForm = document.getElementById("contact-form");
 
 if (contactForm) {
   contactForm.addEventListener("submit", (e) => {
-    e.preventDefault(); // prevent page reload
+    e.preventDefault();
 
     const formData = new FormData(contactForm);
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const company = formData.get("company");
+    const message = formData.get("message");
 
+    // Simple validation
+    if (!name || !email || !message) {
+      alert("Please fill in all required fields!");
+      return;
+    }
+
+    // Submit the form to Web3Forms
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData
     })
-      .then(async (response) => {
+      .then((response) => {
         if (response.ok) {
-          // Show success popup
-          alert(
-            "🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨"
-          );
-          // Reset the form
+          alert("🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨");
           contactForm.reset();
         } else {
-          const resData = await response.json();
-          console.error("Error response:", resData);
-          alert("❌ Oops! Submission failed. Please try again or check your access key.");
+          alert("⚠️ Oops! Something went wrong. Please try again.");
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
-        alert("⚠️ There was an error submitting the form. Please try again later.");
+        console.error("Submission error:", error);
+        alert("⚠️ Network error. Please try again later.");
       });
   });
 }
