@@ -2469,57 +2469,71 @@ section {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Popup content */
+.popup-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
 .popup-content {
-  background: #ffffff;
-  color: #222;
-  padding: 30px 40px;
+  background: #fff;
+  padding: 2rem;
   border-radius: 12px;
-  text-align: center;
   max-width: 400px;
   width: 90%;
-  position: relative;
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-  animation: scaleUp 0.3s ease-in-out;
-  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Close button */
-.popup-close {
-  position: absolute;
-  top: 10px;
-  right: 16px;
-  font-size: 24px;
-  cursor: pointer;
-  color: #888;
+.popup-content h2 {
+  margin-bottom: 10px;
+  font-size: 1.6rem;
+  color: #28a745;
 }
 
-/* Button style */
+.popup-content p {
+  margin-bottom: 20px;
+  font-size: 1rem;
+  color: #333;
+}
+
 .popup-content button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #3f83f8;
+  background: #007bff;
   color: white;
+  padding: 10px 20px;
   border: none;
-  border-radius: 8px;
-  font-weight: 600;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: background 0.3s ease;
 }
 
 .popup-content button:hover {
-  background-color: #2b6edc;
+  background: #0056b3;
 }
 
-/* Animations */
+.popup-close {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #aaa;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-@keyframes scaleUp {
-  from { transform: scale(0.9); }
-  to { transform: scale(1); }
 }
 
 }
