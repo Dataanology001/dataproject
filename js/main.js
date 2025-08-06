@@ -71,43 +71,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", (e) => {
-    e.preventDefault();
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault(); // prevent default form submission
 
     const formData = new FormData(contactForm);
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const company = formData.get("company");
-    const message = formData.get("message");
 
-    // Simple validation
-    if (!name || !email || !message) {
-      alert("Please fill in all required fields!");
-      return;
-    }
-
-    // Submit the form to Web3Forms
     fetch("https://api.web3forms.com/submit", {
       method: "POST",
       body: formData
     })
-      ..then(async (response) => {
-  if (response.ok) {
-    showSuccessPopup(); // ← Modern popup
-    contactForm.reset();
-  } else {
-    const resData = await response.json();
-    console.error("Error response:", resData);
-    alert("❌ Oops! Submission failed. Please try again or check your access key.");
-  }
-})
-
+      .then(async (response) => {
+        if (response.ok) {
+          showSuccessPopup(); // ← Your modern popup function
+          contactForm.reset();
+        } else {
+          const resData = await response.json();
+          console.error("Error response:", resData);
+          alert("❌ Oops! Submission failed. Please try again or check your access key.");
+        }
+      })
       .catch((error) => {
-        console.error("Submission error:", error);
-        alert("⚠️ Network error. Please try again later.");
+        console.error("Network error:", error);
+        alert("❌ Network error. Please check your internet connection.");
       });
   });
 }
+
 
 
   // Newsletter form handling
