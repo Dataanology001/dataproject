@@ -68,36 +68,39 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // Form submission handling (example for contact form)
-  document.addEventListener("DOMContentLoaded", function () {
   const contactForm = document.getElementById("contact-form");
 
-  if (contactForm) {
-    contactForm.addEventListener("submit", function (e) {
-      e.preventDefault(); // prevent default submission
+if (contactForm) {
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // prevent page reload
 
-      const formData = new FormData(contactForm);
+    const formData = new FormData(contactForm);
 
-      fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
+    fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    })
+      .then(async (response) => {
+        if (response.ok) {
+          // Show success popup
+          alert(
+            "🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨"
+          );
+          // Reset the form
+          contactForm.reset();
+        } else {
+          const resData = await response.json();
+          console.error("Error response:", resData);
+          alert("❌ Oops! Submission failed. Please try again or check your access key.");
+        }
       })
-        .then(async (response) => {
-          if (response.ok) {
-            showSuccessPopup();
-            contactForm.reset();
-          } else {
-            const resData = await response.json();
-            console.error("Error response:", resData);
-            alert("❌ Submission failed. Please check your access key or try again.");
-          }
-        })
-        .catch((error) => {
-          console.error("Network error:", error);
-          alert("❌ Network error. Please try again.");
-        });
-    });
-  }
-});
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("⚠️ There was an error submitting the form. Please try again later.");
+      });
+  });
+}
+
 
 // Show popup
 function showSuccessPopup() {
