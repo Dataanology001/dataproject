@@ -71,8 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const contactForm = document.getElementById("contact-form");
 
 if (contactForm) {
-  contactForm.addEventListener("submit", function (e) {
-    e.preventDefault(); // prevent default form submission
+  contactForm.addEventListener("submit", (e) => {
+    e.preventDefault(); // prevent page reload
 
     const formData = new FormData(contactForm);
 
@@ -82,7 +82,11 @@ if (contactForm) {
     })
       .then(async (response) => {
         if (response.ok) {
-          showSuccessPopup(); // ← Your modern popup function
+          // Show success popup
+          alert(
+            "🎉 Amazing! Your message just flowed into our ecosystem! We'll connect back to you faster than data through fiber optics! ✨"
+          );
+          // Reset the form
           contactForm.reset();
         } else {
           const resData = await response.json();
@@ -91,8 +95,8 @@ if (contactForm) {
         }
       })
       .catch((error) => {
-        console.error("Network error:", error);
-        alert("❌ Network error. Please check your internet connection.");
+        console.error("Error:", error);
+        alert("⚠️ There was an error submitting the form. Please try again later.");
       });
   });
 }
